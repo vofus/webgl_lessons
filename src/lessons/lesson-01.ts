@@ -5,35 +5,7 @@ import simpleFragmentSource from '../shaders/simple/simple-fragment.glsl';
 
 import { createWebGLBuffer } from '../tools/create-webgl-buffer';
 import { createWebGLProgram } from '../tools/create-webgl-program';
-
-// https://webglfundamentals.org/webgl/lessons/ru/webgl-2d-matrices.html
-const m3 = {
-    translation: function(tx: number, ty: number): number[] {
-      return [
-        1, 0, 0,
-        0, 1, 0,
-        tx, ty, 1,
-      ];
-    },
-  
-    rotation: function(angleInRadians: number): number[] {
-      const c = Math.cos(angleInRadians);
-      const s = Math.sin(angleInRadians);
-      return [
-        c,-s, 0,
-        s, c, 0,
-        0, 0, 1,
-      ];
-    },
-  
-    scaling: function(sx: number, sy: number): number[] {
-      return [
-        sx, 0, 0,
-        0, sy, 0,
-        0, 0, 1,
-      ];
-    },
-  };
+import { m3 } from '../tools/m3';
 
 export function runLesson01(gl: WebGLRenderingContext): void {
     console.log('Lesson 01 started!');
@@ -79,7 +51,7 @@ function render(
     angle: number
 ): void {
     const rotation = m3.rotation(angle * Math.PI / 180);
-    
+
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT);
